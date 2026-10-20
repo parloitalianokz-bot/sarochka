@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Эргономика — Урок для Сары (6 класс)</title>
+<style>
+  :root {
+    --primary: #4f46e5;
+    --primary-light: #818cf8;
+    --accent: #10b981;
+    --accent-dark: #059669;
+    --bg: #f0f9ff;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #ecfdf5 100%);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  .quick-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: -8px 0 24px;
+    padding: 12px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(79,70,229,0.12);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(15,23,42,0.05);
+  }
+
+  .quick-nav a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 8px 13px;
+    border-radius: 999px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .quick-nav a:hover { background: #ede9fe; color: #3730a3; }
+  section[id] { scroll-margin-top: 16px; }
+
+  :focus-visible {
+    outline: 3px solid #f59e0b;
+    outline-offset: 3px;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding: 32px 20px;
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    color: white;
+    border-radius: 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: "💻";
+    position: absolute;
+    font-size: 120px;
+    opacity: 0.1;
+    right: -20px;
+    top: -30px;
+  }
+
+  header h1 {
+    font-size: 1.9rem;
+    margin-bottom: 8px;
+    font-weight: 800;
+  }
+
+  header p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-top: 12px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* Sections */
+  section {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 24px 22px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid rgba(79, 70, 229, 0.08);
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    color: var(--primary);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2 .icon { font-size: 1.5rem; }
+
+  h3 {
+    font-size: 1.1rem;
+    color: var(--accent-dark);
+    margin: 18px 0 10px;
+  }
+
+  p, li { font-size: 1.02rem; }
+
+  ul { padding-left: 22px; margin: 10px 0; }
+  li { margin-bottom: 6px; }
+
+  .highlight {
+    background: linear-gradient(90deg, #fef3c7, #fde68a);
+    padding: 14px 16px;
+    border-radius: 12px;
+    border-left: 5px solid var(--warning);
+    margin: 16px 0;
+    font-weight: 500;
+  }
+
+  .tip {
+    background: #ecfdf5;
+    border-left: 5px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin: 16px 0;
+  }
+
+  .definition {
+    background: linear-gradient(135deg, #ede9fe, #e0e7ff);
+    padding: 18px;
+    border-radius: 16px;
+    margin: 14px 0;
+    border: 2px solid #c7d2fe;
+  }
+
+  .definition strong { color: var(--primary); }
+
+  .time-card.featured {
+    border-color: #86efac;
+    background: linear-gradient(145deg, #ecfdf5, #d1fae5);
+    box-shadow: 0 8px 18px rgba(16,185,129,0.12);
+  }
+
+  /* Posture illustration */
+  .posture-visual {
+    margin: 18px 0;
+    padding: 20px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+    border: 1px solid #dbeafe;
+  }
+
+  .posture-visual h3 { margin: 0 0 14px; }
+
+  .posture-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 1.15fr);
+    align-items: center;
+    gap: 20px;
+  }
+
+  .posture-person {
+    min-height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    background: rgba(255,255,255,0.72);
+    border-radius: 16px;
+  }
+
+  .posture-person .monitor { font-size: clamp(2.8rem, 8vw, 4.4rem); }
+  .posture-notes { list-style: none; padding: 0; margin: 0; }
+  .posture-notes li { margin: 8px 0; }
+  .posture-distance {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: #d1fae5;
+    color: #065f46;
+    font-weight: 800;
+  }
+
+  /* Time table */
+  .time-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .time-card {
+    background: linear-gradient(145deg, #f0f9ff, #e0f2fe);
+    border-radius: 14px;
+    padding: 14px 10px;
+    text-align: center;
+    border: 2px solid #bae6fd;
+    transition: transform 0.2s;
+  }
+
+  .time-card:hover { transform: translateY(-3px); }
+
+  .time-card .grade {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.95rem;
+  }
+
+  .time-card .minutes {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent-dark);
+    margin-top: 4px;
+  }
+
+  /* Rules list */
+  .rules {
+    counter-reset: rule;
+    list-style: none;
+    padding: 0;
+  }
+
+  .rules li {
+    counter-increment: rule;
+    position: relative;
+    padding: 12px 12px 12px 52px;
+    margin-bottom: 10px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .rules li::before {
+    content: counter(rule);
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  /* Exercises visual */
+  .exercise-box {
+    background: #fefce8;
+    border-radius: 14px;
+    padding: 16px;
+    margin: 12px 0;
+    text-align: center;
+    border: 2px dashed #facc15;
+  }
+
+  .exercise-box span { font-size: 1.8rem; margin: 0 6px; }
+
+  /* Interactive section */
+  .quiz-section {
+    background: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+  }
+
+  .quiz-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 18px;
+    transition: border-color 0.3s;
+  }
+
+  .quiz-card.correct { border-color: var(--accent); background: #f0fdf4; }
+  .quiz-card.wrong { border-color: var(--danger); background: #fef2f2; }
+
+  .quiz-card h4 {
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .option-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.98rem;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--primary-light);
+    background: #f5f3ff;
+    transform: translateX(3px);
+  }
+
+  .option-btn:focus-visible, .tf-btn:focus-visible, .restart-btn:focus-visible {
+    outline: 3px solid #f59e0b;
+    outline-offset: 2px;
+  }
+
+  .option-btn.selected-correct {
+    background: #d1fae5;
+    border-color: var(--accent);
+    color: #065f46;
+    font-weight: 600;
+  }
+
+  .option-btn.selected-wrong {
+    background: #fee2e2;
+    border-color: var(--danger);
+    color: #991b1b;
+  }
+
+  .option-btn:disabled { cursor: default; opacity: 0.9; }
+
+  .feedback {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 500;
+    display: none;
+  }
+
+  .feedback.show { display: block; }
+  .feedback.ok { background: #d1fae5; color: #065f46; }
+  .feedback.bad { background: #fee2e2; color: #991b1b; }
+
+  /* Score */
+  .score-box {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    border-radius: 18px;
+    margin-top: 20px;
+    display: none;
+  }
+
+  .score-box.show { display: block; animation: pop 0.4s ease; }
+
+  @keyframes pop {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .score-box .big {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin: 8px 0;
+  }
+
+  /* True/False */
+  .tf-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .tf-row span { flex: 1; min-width: 200px; }
+
+  .tf-btns { display: flex; gap: 8px; }
+
+  .tf-btn {
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 2px solid #cbd5e1;
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+
+  .tf-btn:hover:not(:disabled) { transform: scale(1.05); }
+  .tf-btn.yes { border-color: var(--accent); color: var(--accent-dark); }
+  .tf-btn.no { border-color: var(--danger); color: var(--danger); }
+  .tf-btn.active-yes { background: #d1fae5; border-color: var(--accent); }
+  .tf-btn.active-no { background: #fee2e2; border-color: var(--danger); }
+  .tf-btn:disabled { cursor: default; }
+
+  /* Motivation */
+  .motivation {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-radius: 16px;
+    margin: 20px 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #92400e;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.5rem; }
+    .time-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: #e2e8f0;
+    border-radius: 999px;
+    height: 10px;
+    margin: 16px 0 8px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #34d399);
+    width: 0%;
+    transition: width 0.4s ease;
+    border-radius: 999px;
+  }
+
+  .progress-text {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .restart-btn {
+    display: block;
+    margin: 14px auto 22px;
+    padding: 10px 18px;
+    border: 2px solid var(--primary);
+    border-radius: 999px;
+    color: var(--primary);
+    background: white;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .restart-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+
+  @media (max-width: 600px) {
+    .container { padding: 12px 12px 40px; }
+    section { padding: 20px 16px; border-radius: 16px; }
+    .quick-nav { gap: 6px; padding: 9px; }
+    .quick-nav a { padding: 8px 10px; font-size: 0.92rem; }
+    .posture-layout { grid-template-columns: 1fr; gap: 12px; }
+    .posture-person { min-height: 130px; }
+    .tf-btn { min-height: 44px; padding: 9px 16px; }
+    .option-btn { min-height: 46px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <h1>🚀 Что такое эргономика?</h1>
+    <p>§ 1. Информатика — 6 класс</p>
+    <div class="badge">Для Сары • Учимся с удовольствием!</div>
+  </header>
+
+  <nav class="quick-nav" aria-label="Навигация по уроку">
+    <a href="#definition">📚 Тема</a>
+    <a href="#workplace">🪑 Рабочее место</a>
+    <a href="#breaks">🧘 Перерывы</a>
+    <a href="#quiz">🎮 Проверь себя</a>
+  </nav>
+
+  <div class="motivation">
+    Привет, Сара! 🌟 Сегодня ты узнаешь, как сделать работу за компьютером удобной, безопасной и даже приятной. Готова стать экспертом по эргономике? Поехали!
+  </div>
+
+  <!-- 1. Definition -->
+  <section id="definition">
+    <h2><span class="icon">📚</span> Что такое эргономика?</h2>
+    
+    <div class="definition">
+      <strong>Эргономика</strong> — это наука об эффективной организации рабочего места.  
+      Она создаёт благоприятные условия для человека, учитывая физические и психологические особенности организма.
+    </div>
+
+    <p>Слово «эргономика» пришло из греческого языка:</p>
+    <ul>
+      <li><strong>ergon</strong> — работа</li>
+      <li><strong>nomos</strong> — закон</li>
+    </ul>
+    <p>То есть это <em>«закон о работе»</em>! Наука о том, как работать комфортно и без вреда для здоровья.</p>
+
+    <div class="tip">
+      💡 Эргономика (или «человеческий фактор») изучает, как человек взаимодействует с техникой, и помогает сохранить здоровье.
+    </div>
+  </section>
+
+  <!-- 2. Goals & Tasks -->
+  <section>
+    <h2><span class="icon">🎯</span> Цели и задачи эргономики</h2>
+
+    <h3>Цели:</h3>
+    <ul>
+      <li>Организовать эффективную работу и удобство рабочих мест (человек + техника)</li>
+      <li>Сохранить здоровье человека и создать безопасные условия труда</li>
+    </ul>
+
+    <h3>Задачи:</h3>
+    <ul>
+      <li>Обеспечить комфорт, безопасность и эффективность</li>
+      <li>Исключить изнурительные нагрузки, дискомфорт и опасные ситуации</li>
+      <li>Улучшить оборудование, рабочий процесс и условия</li>
+    </ul>
+
+    <div class="highlight">
+      Эргономика нужна не только в информатике! Её применяют в медицине, на производстве, в сельском хозяйстве и даже в дизайне мебели.
+    </div>
+  </section>
+
+  <!-- 3. Workplace -->
+  <section id="workplace">
+    <h2><span class="icon">🪑</span> Правильная организация рабочего места</h2>
+    
+    <p>Когда ты сидишь за компьютером, важно:</p>
+
+    <div class="posture-visual">
+      <h3>Проверь свою посадку 👇</h3>
+      <div class="posture-layout">
+        <div class="posture-person" aria-hidden="true"><span>🧍</span><span class="monitor">🖥️</span></div>
+        <ul class="posture-notes">
+          <li>🟣 Спина прямая, плечи расслаблены</li>
+          <li>🟢 Ступни стоят на полу, колени согнуты</li>
+          <li>🔵 Кисти и предплечья на одной линии</li>
+        </ul>
+      </div>
+      <div class="posture-distance">Экран — примерно на расстоянии вытянутой руки</div>
+    </div>
+
+    <ul>
+      <li>Голова слегка наклонена вперёд</li>
+      <li>Плечи расслаблены</li>
+      <li>Спина прямая</li>
+      <li>Ноги согнуты в коленях под прямым углом</li>
+      <li>Кисти и предплечья находятся на одной линии</li>
+      <li>Расстояние до монитора — <strong>60–70 см</strong></li>
+      <li>Рабочие материалы лежат рядом</li>
+    </ul>
+
+    <div class="tip">
+      ✅ Стул и стол должны быть удобной высоты. Ноги и предплечья — под прямым углом!
+    </div>
+  </section>
+
+  <!-- 4. Time limits -->
+  <section>
+    <h2><span class="icon">⏱️</span> Сколько можно сидеть за компьютером?</h2>
+    
+    <p>Время зависит от возраста. Вот рекомендации:</p>
+    
+    <div class="time-grid">
+      <div class="time-card">
+        <div class="grade">1–2 классы</div>
+        <div class="minutes">10 мин</div>
+      </div>
+      <div class="time-card">
+        <div class="grade">3–5 классы</div>
+        <div class="minutes">15–20 мин</div>
+      </div>
+      <div class="time-card featured">
+        <div class="grade">6–9 классы</div>
+        <div class="minutes">25–30 мин</div>
+      </div>
+      <div class="time-card">
+        <div class="grade">10–11 классы</div>
+        <div class="minutes">30–35 мин</div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      Сара, ты в 6 классе — тебе можно работать за компьютером <strong>25–30 минут</strong>, а потом обязательно сделай перерыв и упражнения!
+    </div>
+  </section>
+
+  <!-- 5. Rules -->
+  <section>
+    <h2><span class="icon">✅</span> 10 важных правил</h2>
+    
+    <ol class="rules">
+      <li>Сиди прямо, не сутулься</li>
+      <li>Сохраняй постоянное расстояние между монитором и глазами</li>
+      <li>Не клади на стол посторонние предметы (телефон, еду, сумку…)</li>
+      <li>Правильно расположи стул — удобно и без раскачивания</li>
+      <li>Правильно используй клавиатуру и мышь, не нажимай лишние клавиши</li>
+      <li>Не меняй устройства и не трогай кабели</li>
+      <li>Не сиди без надобности — делай упражнения для глаз и тела</li>
+      <li>После работы проветри комнату</li>
+      <li>На уроке внимательно слушай учителя, не отвлекайся на игры и видео</li>
+      <li>В кабинете не меняйся местами и не мешай одноклассникам</li>
+    </ol>
+  </section>
+
+  <!-- 6. Exercises -->
+  <section id="breaks">
+    <h2><span class="icon">🧘</span> Упражнения — твои супергеройские паузы!</h2>
+    
+    <p>Во время работы за компьютером обязательно делай короткие перерывы.</p>
+
+    <h3>Для тела:</h3>
+    <div class="exercise-box">
+      <span>🧍</span> <span>🙆</span> <span>🙌</span> <span>🤸</span> <span>💪</span>
+      <p style="margin-top:10px;">Встань, потянись, сделай наклоны, покрути плечами, походи.</p>
+    </div>
+
+    <h3>Для глаз:</h3>
+    <div class="exercise-box">
+      <span>👀</span> ← → ↑ ↓ ⟳
+      <p style="margin-top:10px;">Посмотри вдаль, поморгай, нарисуй глазами круги, «восьмёрки», закрой глаза на несколько секунд.</p>
+    </div>
+
+    <div class="tip">
+      🌟 Эти упражнения помогают глазам отдохнуть и сохраняют хорошее самочувствие!
+    </div>
+  </section>
+
+  <!-- INTERACTIVE EXERCISES -->
+  <section class="quiz-section" id="quiz">
+    <h2><span class="icon">🎮</span> Интерактивные упражнения</h2>
+    <p style="margin-bottom: 8px;">Проверь себя! Отвечай на вопросы и получай баллы. Удачи, Сара! 💪</p>
+
+    <div class="progress-wrap" role="progressbar" aria-label="Прогресс теста" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText" aria-live="polite">Выполнено: 0 из 8</div>
+    <button class="restart-btn" type="button" onclick="resetQuiz()">↻ Начать тест заново</button>
+
+    <!-- Quiz 1 -->
+    <div class="quiz-card" id="q1">
+      <h4>1. Что означает слово «эргономика»?</h4>
+      <div class="options">
+        <button class="option-btn" onclick="checkAnswer(1, this, false)">Наука о компьютерах</button>
+        <button class="option-btn" data-correct="true" onclick="checkAnswer(1, this, true)">Наука об эффективной организации рабочего места</button>
+        <button class="option-btn" onclick="checkAnswer(1, this, false)">Правила поведения в классе</button>
+        <button class="option-btn" onclick="checkAnswer(1, this, false)">Вид спорта</button>
+      </div>
+      <div class="feedback" role="status" aria-live="polite" id="fb1"></div>
+    </div>
+
+    <!-- Quiz 2 -->
+    <div class="quiz-card" id="q2">
+      <h4>2. Сколько минут можно работать за компьютером ученику 6 класса?</h4>
+      <div class="options">
+        <button class="option-btn" onclick="checkAnswer(2, this, false)">10 минут</button>
+        <button class="option-btn" onclick="checkAnswer(2, this, false)">15–20 минут</button>
+        <button class="option-btn" data-correct="true" onclick="checkAnswer(2, this, true)">25–30 минут</button>
+        <button class="option-btn" onclick="checkAnswer(2, this, false)">1 час</button>
+      </div>
+      <div class="feedback" role="status" aria-live="polite" id="fb2"></div>
+    </div>
+
+        <!-- Quiz 3 -->
+    <div class="quiz-card" id="q3">
+      <h4>3. Какое расстояние должно быть между глазами и монитором?</h4>
+      <div class="options">
+        <button class="option-btn" onclick="checkAnswer(3, this, false)">30–40 см</button>
+        <button class="option-btn" data-correct="true" onclick="checkAnswer(3, this, true)">60–70 см</button>
+        <button class="option-btn" onclick="checkAnswer(3, this, false)">1 метр</button>
+        <button class="option-btn" onclick="checkAnswer(3, this, false)">Не важно</button>
+      </div>
+      <div class="feedback" role="status" aria-live="polite" id="fb3"></div>
+    </div>
+
+    <!-- Quiz 4 -->
+    <div class="quiz-card" id="q4">
+      <h4>4. Какая главная цель эргономики?</h4>
+      <div class="options">
+        <button class="option-btn" onclick="checkAnswer(4, this, false)">Сделать компьютер быстрее</button>
+        <button class="option-btn" data-correct="true" onclick="checkAnswer(4, this, true)">Сохранить здоровье и создать удобные условия работы</button>
+        <button class="option-btn" onclick="checkAnswer(4, this, false)">Научить программированию</button>
+        <button class="option-btn" onclick="checkAnswer(4, this, false)">Увеличить время за компьютером</button>
+      </div>
+      <div class="feedback" role="status" aria-live="polite" id="fb4"></div>
+    </div>
+
+    <!-- True / False section -->
+    <h3 style="margin-top: 28px;">Верно или неверно? 🤔</h3>
+    <p style="margin-bottom: 14px; color: var(--muted);">Нажми «Верно» или «Неверно»</p>
+
+    <div class="quiz-card" id="q5">
+      <div class="tf-row">
+        <span>5. Можно класть телефон и еду на компьютерный стол.</span>
+        <div class="tf-btns">
+          <button class="tf-btn yes" onclick="checkTF(5, false, this)">Верно</button>
+          <button class="tf-btn no" data-correct="true" onclick="checkTF(5, true, this)">Неверно</button>
+        </div>
+      </div>
+      <div class="feedback" role="status" aria-live="polite" id="fb5"></div>
+    </div>
+
+    <div class="quiz-card" id="q6">
+      <div class="tf-row">
+        <span>6. После работы за компьютером нужно проветрить комнату.</span>
+        <div class="tf-btns">
+          <button class="tf-btn yes" data-correct="true" onclick="checkTF(6, true, this)">Верно</button>
+          <button class="tf-btn no" onclick="checkTF(6, false, this)">Неверно</button>
+        </div>
+      </div>
+      <div class="feedback" role="status" aria-live="polite" id="fb6"></div>
+    </div>
+
+    <div class="quiz-card" id="q7">
+      <div class="tf-row">
+        <span>7. На уроке информатики можно слушать музыку и смотреть видеоролики.</span>
+        <div class="tf-btns">
+          <button class="tf-btn yes" onclick="checkTF(7, false, this)">Верно</button>
+          <button class="tf-btn no" data-correct="true" onclick="checkTF(7, true, this)">Неверно</button>
+        </div>
+      </div>
+      <div class="feedback" role="status" aria-live="polite" id="fb7"></div>
+    </div>
+
+    <div class="quiz-card" id="q8">
+      <div class="tf-row">
+        <span>8. Нужно периодически делать упражнения для глаз и тела.</span>
+        <div class="tf-btns">
+          <button class="tf-btn yes" data-correct="true" onclick="checkTF(8, true, this)">Верно</button>
+          <button class="tf-btn no" onclick="checkTF(8, false, this)">Неверно</button>
+        </div>
+      </div>
+      <div class="feedback" role="status" aria-live="polite" id="fb8"></div>
+    </div>
+
+    <!-- Score -->
+    <div class="score-box" id="scoreBox" role="status" aria-live="polite">
+      <div>Твой результат:</div>
+      <div class="big" id="scoreValue">0 / 8</div>
+      <div id="scoreMessage"></div>
+    </div>
+  </section>
+
+  <!-- Final motivation -->
+  <section style="text-align: center; background: linear-gradient(135deg, #ecfdf5, #d1fae5);">
+    <h2 style="justify-content: center; color: var(--accent-dark);">🎉 Молодец, Сара!</h2>
+    <p style="font-size: 1.1rem; margin-top: 8px;">
+      Теперь ты знаешь, как правильно организовать рабочее место и заботиться о своём здоровье.  
+      Применяй эти знания каждый день — и компьютер станет твоим надёжным другом, а не источником усталости!
+    </p>
+    <p style="margin-top: 14px; font-weight: 600; color: var(--primary);">
+      Помни: удобно + безопасно = отлично! 💪✨
+    </p>
+  </section>
+
+  <footer>
+    Материал подготовлен по § 1 учебника информатики (Казахстан) · Для Сары, 6 класс
+  </footer>
+</div>
+
+<script>
+  let score = 0;
+  let answered = new Set();
+  const total = 8;
+
+  function updateProgress() {
+    const pct = (answered.size / total) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `Выполнено: ${answered.size} из ${total}`;
+    document.querySelector('.progress-wrap').setAttribute('aria-valuenow', answered.size);
+
+    if (answered.size === total) showFinalScore();
+  }
+
+  function checkAnswer(num, btn, isCorrect) {
+    if (answered.has(num)) return;
+    answered.add(num);
+
+    const card = document.getElementById('q' + num);
+    const feedback = document.getElementById('fb' + num);
+    card.classList.add(isCorrect ? 'correct' : 'wrong');
+    btn.classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
+    card.querySelectorAll('.option-btn').forEach(option => option.disabled = true);
+    const correctAnswer = card.querySelector('[data-correct="true"]').textContent.trim();
+    feedback.textContent = isCorrect
+      ? '✅ Правильно! Отличный ответ!'
+      : `❌ Пока неверно. Правильный ответ: ${correctAnswer}.`;
+    feedback.className = 'feedback show ' + (isCorrect ? 'ok' : 'bad');
+    if (isCorrect) score++;
+    updateProgress();
+  }
+
+  function checkTF(num, isCorrect, btn) {
+    if (answered.has(num)) return;
+    answered.add(num);
+
+    const card = document.getElementById('q' + num);
+    const feedback = document.getElementById('fb' + num);
+    card.classList.add(isCorrect ? 'correct' : 'wrong');
+    btn.classList.add(btn.classList.contains('yes') ? 'active-yes' : 'active-no');
+    card.querySelectorAll('.tf-btn').forEach(option => option.disabled = true);
+    const correctAnswer = card.querySelector('[data-correct="true"]').textContent.trim();
+    feedback.textContent = isCorrect
+      ? '✅ Верно! Ты хорошо запомнила правила.'
+      : `❌ Не совсем. Правильный ответ: ${correctAnswer}.`;
+    feedback.className = 'feedback show ' + (isCorrect ? 'ok' : 'bad');
+    if (isCorrect) score++;
+    updateProgress();
+  }
+
+  function showFinalScore() {
+    document.getElementById('scoreValue').textContent = `${score} / ${total}`;
+    const message = score === total
+      ? 'Великолепно! Ты настоящий эксперт по эргономике! 🌟'
+      : score >= 5
+        ? 'Отличная работа! Повтори правила, и будет ещё лучше! 💪'
+        : 'Хорошее начало! Перечитай урок и попробуй ещё раз. 📚';
+    document.getElementById('scoreMessage').textContent = message;
+    document.getElementById('scoreBox').classList.add('show');
+  }
+
+  function resetQuiz() {
+    score = 0;
+    answered.clear();
+    for (let num = 1; num <= total; num++) {
+      const card = document.getElementById('q' + num);
+      card.classList.remove('correct', 'wrong');
+      card.querySelectorAll('button').forEach(button => {
+        button.disabled = false;
+        button.classList.remove('selected-correct', 'selected-wrong', 'active-yes', 'active-no');
+      });
+      const feedback = document.getElementById('fb' + num);
+      feedback.textContent = '';
+      feedback.className = 'feedback';
+    }
+    document.getElementById('scoreBox').classList.remove('show');
+    updateProgress();
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById('q1').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+  }
+</script>
+</body>
+</html>
