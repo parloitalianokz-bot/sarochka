@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок: Интернет-зависимость (Интерактив)</title>
+    <style>
+        /* --- STILI GENERALI --- */
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #50E3C2;
+            --bg-color: #F4F7F6;
+            --text-color: #333;
+            --card-bg: #FFFFFF;
+            --danger-color: #E94E77;
+            --success-color: #27AE60;
+            --warning-color: #F39C12;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        /* --- CARD E SEZIONI --- */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #2C3E50;
+            margin-top: 30px;
+        }
+
+        /* --- SCHEMA (Immagine) --- */
+        .schema-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .schema-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .placeholder-img {
+            width: 100%;
+            height: 250px;
+            background-color: #E0E0E0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: #777;
+            font-style: italic;
+            border: 2px dashed #BDBDBD;
+        }
+
+        /* --- LISTE E APPROFONDIMENTI --- */
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background-color: #E3F2FD;
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        /* --- INTERACTIVE QUIZ --- */
+        .quiz-section {
+            background-color: #F8F9FA;
+            border: 2px solid #E9ECEF;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .question:last-child {
+            border-bottom: none;
+        }
+
+        .question p {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background-color: white;
+            border: 1px solid #CED4DA;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.2s;
+        }
+
+        .options button:hover:not(:disabled) {
+            background-color: #E2E6EA;
+        }
+
+        .options button:disabled {
+            cursor: default;
+        }
+
+        .options button.correct {
+            background-color: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .options button.wrong {
+            background-color: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+        }
+
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* --- VERO/FALSO --- */
+        .vf-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .vf-buttons button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .vf-buttons button:hover:not(:disabled) {
+            background: #E2E6EA;
+        }
+        
+        .vf-buttons button:disabled {
+            cursor: default;
+        }
+
+        .vf-buttons button.correct {
+            background-color: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .vf-buttons button.wrong {
+            background-color: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+        }
+
+        /* --- CHECKBOX MULTIPLA --- */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #CED4DA;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background-color: #E2E6EA;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+
+        .checkbox-item.disabled {
+            cursor: default;
+            opacity: 0.8;
+        }
+
+        .checkbox-item.is-correct {
+            background-color: #D4EDDA;
+            border-color: var(--success-color);
+        }
+
+        .checkbox-item.is-wrong {
+            background-color: #F8D7DA;
+            border-color: var(--danger-color);
+        }
+
+        .btn-check {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-check:hover:not(:disabled) {
+            background-color: #357ABD;
+        }
+
+        .btn-check:disabled {
+            background-color: #A0C4EC;
+            cursor: default;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🌐 Интернет-зависимость</h1>
+        <p>Урок информатики для 7-8 класса (Подготовлено для Сары)</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- ВВЕДЕНИЕ -->
+        <div class="card">
+            <h2>Что такое Интернет-зависимость?</h2>
+            <p>В настоящее время <strong>интернет-зависимость</strong> является одной из самых серьезных проблем в мире. Сегодня одной из популярных занятий подростка в свободное время стали компьютерные игры и Интернет, который является замечательным средством общения и возможностью найти друзей в сети. Однако, есть много пользователей, которые бесконечно просматривают видеоролики в Интернете, находят нежелательную информацию и иногда просто не замечают, как проводят в сети слишком много времени.</p>
+            <div class="info-box">
+                <strong>💡 Важно:</strong> Это начальные признаки интернет-зависимости. Желательно ограничивать время пользования Интернетом, чтобы это в дальнейшем не стало проблемой!
+            </div>
+        </div>
+
+        <!-- СХЕМА -->
+        <div class="card">
+            <h2>Схема 1. Что может привести к зависимости?</h2>
+            <div class="schema-container">
+                <img src="img/schema1.png" alt="Схема: Причины интернет-зависимости" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder-img" style="display:none;">
+                    [Здесь будет изображение Схемы 1 из учебника. Загрузите картинку как img/schema1.png]
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <strong>🔍 Давайте разберем подробнее:</strong>
+                <ul>
+                    <li><strong>Сетевые и онлайн-игры:</strong> Постоянная потребность проходить новые уровни, страх упустить что-то важное в игре.</li>
+                    <li><strong>Нерациональное использование соцсетей:</strong> Постоянная прокрутка ленты, зависимость от лайков и комментариев.</li>
+                    <li><strong>Просмотр видеороликов:</strong> Алгоритмы видео платформ созданы так, чтобы удерживать внимание как можно дольше.</li>
+                    <li><strong>Интернет как хобби:</strong> Когда виртуальная жизнь полностью заменяет реальные увлечения.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ВЛИЯНИЕ -->
+        <div class="card">
+            <h2>Как это влияет на психологию и поведение?</h2>
+            <p>У зависимого от Интернета человека меняются психология и поведение. Вот основные признаки:</p>
+            <ul>
+                <li><strong>Обман:</strong> Готовы лгать друзьям и семье, преуменьшая время, проведенное в сети.</li>
+                <li><strong>Перепады настроения:</strong> Раздражительность, если нет доступа к сети, и психологические разногласия с близкими.</li>
+                <li><strong>Потеря интереса к реальности:</strong> Не обращают внимания на происходящее вокруг, думают только о виртуальном мире.</li>
+                <li><strong>Избегание общения:</strong> Стараются держаться подальше от людей, не выходят в общественные места.</li>
+                <li><strong>Конфликты в семье:</strong> Недопонимание между родителями и детьми на почве гаджетов.</li>
+                <li><strong>Снижение успеваемости:</strong> Если школьники вместо выполнения домашнего задания играют в игры или сидят в чатах, это ведет к плохим оценкам.</li>
+            </ul>
+        </div>
+
+        <!-- ИНТЕРАКТИВНЫЕ ЗАДАНИЯ -->
+        <div class="card quiz-section">
+            <h2>🎯 Интерактивная мастерская</h2>
+            <p>Выполни все задания ниже, чтобы проверить свои знания!</p>
+
+            <h3>Задание 1: Выбери правильный ответ</h3>
+            
+            <!-- Вопрос 1 -->
+            <div class="question" id="q1">
+                <p>1. Какое из перечисленного НЕ является признаком интернет-зависимости?</p>
+                <div class="options">
+                    <button onclick="checkAnswer('q1', this, false)">A) Человек лжет о времени, проведенном в сети</button>
+                    <button onclick="checkAnswer('q1', this, false)">B) Человек предпочитает виртуальное общение реальному</button>
+                    <button onclick="checkAnswer('q1', this, true)">C) Человек использует Интернет только для поиска информации к уроку и сразу выключает компьютер</button>
+                    <button onclick="checkAnswer('q1', this, false)">D) У человека портится настроение, если он не может зайти в соцсеть</button>
+                </div>
+                <div class="feedback" id="fb-q1"></div>
+            </div>
+
+            <!-- Вопрос 2 -->
+            <div class="question" id="q2">
+                <p>2. Ученые из какого города провели эксперимент «24 часа без Интернета»?</p>
+                <div class="options">
+                    <button onclick="checkAnswer('q2', this, false)">A) Алматы</button>
+                    <button onclick="checkAnswer('q2', this, false)">B) Астана</button>
+                    <button onclick="checkAnswer('q2', this, true)">C) Атырау</button>
+                </div>
+                <div class="feedback" id="fb-q2"></div>
+            </div>
+
+            <h3>Задание 2: Верно или Неверно?</h3>
+            
+            <div class="question" id="q3">
+                <p>3. Утверждение: "Если школьник играет в онлайн-игры вместо выполнения домашнего задания, это может привести к снижению успеваемости."</p>
+                <div class="vf-buttons">
+                    <button onclick="checkVF('q3', this, true)">Верно ✅</button>
+                    <button onclick="checkVF('q3', this, false)">Неверно ❌</button>
+                </div>
+                <div class="feedback" id="fb-q3"></div>
+            </div>
+
+            <div class="question" id="q4">
+                <p>4. Утверждение: "Чтобы избавиться от интернет-зависимости, нужно навсегда запретить себе пользоваться компьютером и телефоном."</p>
+                <div class="vf-buttons">
+                    <button onclick="checkVF('q4', this, false)">Верно ✅</button>
+                    <button onclick="checkVF('q4', this, true)">Неверно ❌</button>
+                </div>
+                <div class="feedback" id="fb-q4"></div>
+            </div>
+
+            <h3>Задание 3: Выбери все правильные решения</h3>
+            <p>Представь, что у твоего друга появились первые признаки интернет-зависимости. Какие действия помогут ему справиться с проблемой? <em>(Выбери все подходящие варианты)</em></p>
+            
+            <div class="question" id="q5">
+                <div class="checkbox-group" id="checkbox-group-q5">
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="1"> Предложить вместе записаться в спортивную секцию.
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="0"> Запретить ему подходить к компьютеру и отобрать телефон.
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="1"> Помочь составить правильный режим дня, где есть время и для учебы, и для отдыха.
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="1"> Пригласить его на прогулку в парк или на пикник с друзьями.
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="0"> Посоветовать ему играть в онлайн-игры еще больше, чтобы ему надоело.
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="1"> Показать, как использовать Интернет для поиска полезной информации (например, для хобби).
+                    </label>
+                </div>
+                <button class="btn-check" id="btn-check-q5" onclick="checkCheckbox()">Проверить ответ</button>
+                <div class="feedback" id="fb-q5"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // --- LOGICA PER I QUIZ A SCELTA MULTIPLA ---
+        function checkAnswer(questionId, button, isCorrect) {
+            const options = document.querySelectorAll(`#${questionId} .options button`);
+            const feedback = document.getElementById(`fb-${questionId}`);
+            
+            options.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedback.textContent = "✅ Правильно! Молодец!";
+                feedback.style.color = "var(--success-color)";
+            } else {
+                button.classList.add('wrong');
+                feedback.textContent = "❌ Неправильно. Подумай еще раз!";
+                feedback.style.color = "var(--danger-color)";
+                
+                options.forEach(btn => {
+                    if (btn.getAttribute('onclick').includes('true')) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+            feedback.style.display = 'block';
+        }
+
+        // --- LOGICA PER VERO/FALSO ---
+        function checkVF(questionId, button, isCorrect) {
+            const buttons = document.querySelectorAll(`#${questionId} .vf-buttons button`);
+            const feedback = document.getElementById(`fb-${questionId}`);
+            
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedback.textContent = "✅ Верно! Отличная работа!";
+                feedback.style.color = "var(--success-color)";
+            } else {
+                button.classList.add('wrong');
+                feedback.textContent = "❌ Ошибка. Правильный ответ подсвечен.";
+                feedback.style.color = "var(--danger-color)";
+                
+                buttons.forEach(btn => {
+                    if (btn.getAttribute('onclick').includes('true')) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+            feedback.style.display = 'block';
+        }
+
+        // --- LOGICA PER CHECKBOX MULTIPLA ---
+        function checkCheckbox() {
+            const group = document.getElementById('checkbox-group-q5');
+            const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+            const feedback = document.getElementById('fb-q5');
+            const btn = document.getElementById('btn-check-q5');
+            let allCorrect = true;
+
+            // Blocca il pulsante e le checkbox
+            btn.disabled = true;
+            
+            checkboxes.forEach(checkbox => {
+                const label = checkbox.parentElement;
+                const isCorrectAnswer = checkbox.value === "1";
+                const isChecked = checkbox.checked;
+
+                // Applica stili visivi in base alla correttezza
+                if (isCorrectAnswer) {
+                    label.classList.add('is-correct');
+                } else if (isChecked && !isCorrectAnswer) {
+                    label.classList.add('is-wrong');
+                    allCorrect = false;
+                }
+
+                // Verifica se l'utente ha mancato una risposta corretta
+                if (!isChecked && isCorrectAnswer) {
+                    allCorrect = false;
+                    label.style.border = "2px dashed var(--success-color)"; // Evidenzia quella mancante
+                }
+
+                // Se ha selezionato una risposta sbagliata
+                if (isChecked && !isCorrectAnswer) {
+                    allCorrect = false;
+                }
+
+                // Disabilita le checkbox
+                checkbox.disabled = true;
+                label.classList.add('disabled');
+            });
+
+            // Mostra il feedback finale
+            feedback.style.display = 'block';
+            if (allCorrect) {
+                feedback.textContent = "🏆 Превосходно! Ты выбрала все правильные решения!";
+                feedback.style.color = "var(--success-color)";
+            } else {
+                feedback.textContent = "❌ Есть ошибки. Зеленым выделены правильные варианты, красным — те, которые выбирать не стоило.";
+                feedback.style.color = "var(--danger-color)";
+            }
+        }
+    </script>
+</body>
+  </html>
