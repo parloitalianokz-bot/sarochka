@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>§ 3. История развития вычислительной техники</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<!-- FontAwesome per le icone -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Firebase SDK v9 -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+// Configurazione Firebase (puoi personalizzare projectId e credenziali)
+const firebaseConfig = {
+apiKey: "AIzaSyDummyKeyForDemoFirebase",
+authDomain: "parlo-italiano-edu.firebaseapp.com",
+projectId: "parlo-italiano-edu",
+storageBucket: "parlo-italiano-edu.appspot.com",
+messagingSenderId: "1234567890",
+appId: "1:1234567890:web:abcdef"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window.db = db;
+window.collection = collection;
+window.addDoc = addDoc;
+window.serverTimestamp = serverTimestamp;
+</script>
+<style>
+:root {
+--primary: #4361ee;
+--primary-light: #4895ef;
+--secondary: #3f37c9;
+--accent: #4cc9f0;
+--success: #4bb543;
+--warning: #f72585;
+--bg-color: #f8f9fa;
+--card-bg: #ffffff;
+--text-main: #2b2d42;
+--text-muted: #6c757d;
+--border-radius: 16px;
+--transition: all 0.3s ease;
+}
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+body {
+font-family: 'Nunito', sans-serif, Arial, sans-serif;
+background-color: var(--bg-color);
+color: var(--text-main);
+line-height: 1.6;
+padding: 20px;
+}
+.container {
+max-width: 900px;
+margin: 0 auto;
+background: var(--card-bg);
+border-radius: var(--border-radius);
+box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+overflow: hidden;
+margin-bottom: 40px;
+}
+header {
+background: linear-gradient(135deg, var(--primary), var(--secondary));
+color: white;
+padding: 40px 30px;
+text-align: center;
+position: relative;
+}
+header h1 {
+font-size: 2.2rem;
+margin-bottom: 10px;
+font-weight: 800;
+}
+header p {
+font-size: 1.1rem;
+opacity: 0.9;
+}
+.content-section {
+padding: 30px;
+}
+h2 {
+color: var(--secondary);
+font-size: 1.6rem;
+margin-top: 30px;
+margin-bottom: 15px;
+display: flex;
+align-items: center;
+gap: 10px;
+border-bottom: 2px solid #edf2f7;
+padding-bottom: 8px;
+}
+h3 {
+color: var(--primary);
+font-size: 1.3rem;
+margin: 20px 0 10px;
+}
+p {
+margin-bottom: 15px;
+font-size: 1.05rem;
+}
+.highlight-box {
+background: #eef2ff;
+border-left: 5px solid var(--primary);
+padding: 20px;
+border-radius: 0 var(--border-radius) var(--border-radius) 0;
+margin: 20px 0;
+}
+.thought-box {
+background: #e0f7fa;
+border-left: 5px solid #00acc1;
+padding: 20px;
+border-radius: 0 var(--border-radius) var(--border-radius) 0;
+margin: 20px 0;
+}
+.fun-fact {
+background: #fff8e1;
+border-left: 5px solid #ffb300;
+padding: 20px;
+border-radius: 0 var(--border-radius) var(--border-radius) 0;
+margin: 20px 0;
+}
+ul, ol {
+margin-left: 25px;
+margin-bottom: 20px;
+}
+li {
+margin-bottom: 8px;
+font-size: 1.05rem;
+}
+.gallery {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+gap: 20px;
+margin: 25px 0;
+}
+.card-img {
+background: #fff;
+border: 1px solid #e2e8f0;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+transition: var(--transition);
+text-align: center;
+padding-bottom: 15px;
+}
+.card-img:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+}
+.card-img img {
+width: 100%;
+height: 180px;
+object-fit: cover;
+border-bottom: 1px solid #e2e8f0;
+}
+.card-img h4 {
+padding: 12px 15px 5px;
+color: var(--text-main);
+font-size: 1.1rem;
+}
+.card-img p {
+font-size: 0.9rem;
+color: var(--text-muted);
+padding: 0 15px;
+margin: 0;
+}
+/* Tabella */
+table {
+width: 100%;
+border-collapse: collapse;
+margin: 25px 0;
+background: white;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+th, td {
+padding: 14px 18px;
+text-align: left;
+border-bottom: 1px solid #edf2f7;
+}
+th {
+background-color: var(--primary);
+color: white;
+font-weight: 700;
+}
+tr:hover {
+background-color: #f8fafc;
+}
+/* Sezione Esercizi Interattivi */
+.quiz-container {
+background: #f8fafc;
+border: 2px dashed #cbd5e1;
+padding: 30px;
+border-radius: var(--border-radius);
+margin-top: 40px;
+}
+.quiz-container h2 {
+border-bottom: none;
+margin-top: 0;
+color: var(--secondary);
+}
+.question-card {
+background: white;
+padding: 20px;
+border-radius: 12px;
+margin-bottom: 20px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+border: 1px solid #e2e8f0;
+}
+.question-card p.q-title {
+font-weight: 700;
+color: var(--text-main);
+margin-bottom: 12px;
+}
+.options label {
+display: block;
+padding: 10px 14px;
+background: #f1f5f9;
+border-radius: 8px;
+margin-bottom: 8px;
+cursor: pointer;
+transition: var(--transition);
+}
+.options label:hover {
+background: #e2e8f0;
+}
+.options input {
+margin-right: 10px;
+}
+textarea {
+width: 100%;
+padding: 12px;
+border: 1px solid #cbd5e1;
+border-radius: 8px;
+font-family: 'Nunito', sans-serif;
+font-size: 1rem;
+resize: vertical;
+min-height: 90px;
+margin-top: 5px;
+}
+textarea:focus {
+outline: none;
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+.student-info {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 15px;
+margin-bottom: 25px;
+}
+.student-info input {
+padding: 12px;
+border: 1px solid #cbd5e1;
+border-radius: 8px;
+font-family: 'Nunito', sans-serif;
+font-size: 1rem;
+}
+.student-info input:focus {
+outline: none;
+border-color: var(--primary);
+}
+.btn-group {
+display: flex;
+gap: 15px;
+margin-top: 20px;
+}
+.btn-submit {
+background: var(--success);
+color: white;
+border: none;
+padding: 14px 28px;
+font-size: 1.1rem;
+font-weight: 700;
+border-radius: 8px;
+cursor: pointer;
+transition: var(--transition);
+display: flex;
+align-items: center;
+gap: 10px;
+flex: 1;
+justify-content: center;
+}
+.btn-submit:hover {
+background: #38a169;
+transform: translateY(-2px);
+}
+.btn-reset {
+background: #e53e3e;
+color: white;
+border: none;
+padding: 14px 20px;
+font-size: 1.1rem;
+font-weight: 700;
+border-radius: 8px;
+cursor: pointer;
+transition: var(--transition);
+display: flex;
+align-items: center;
+gap: 8px;
+justify-content: center;
+}
+.btn-reset:hover {
+background: #c53030;
+transform: translateY(-2px);
+}
+#status-message {
+margin-top: 15px;
+padding: 12px;
+border-radius: 8px;
+text-align: center;
+font-weight: 600;
+display: none;
+}
+.success-msg {
+background: #d4edda;
+color: #155724;
+border: 1px solid #c3e6cb;
+}
+.error-msg {
+background: #f8d7da;
+color: #721c24;
+border: 1px solid #f5c6cb;
+}
+@media (max-width: 600px) {
+.student-info {
+grid-template-columns: 1fr;
+}
+header h1 {
+font-size: 1.7rem;
+}
+.btn-group {
+flex-direction: column;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>§ 3. История развития вычислительной техники</h1>
+<p>Интерактивный урок информатики для Сары 💻✨</p>
+</header>
+<div class="content-section">
+<div class="thought-box">
+<h3><i class="fa-solid fa-lightbulb"></i> Давайте подумаем!</h3>
+<ul>
+<li>Когда появился первый компьютер?</li>
+<li>Как развиваются компьютерные технологии?</li>
+</ul>
+</div>
+<p>С каждым днем вычислительная техника стремительно развивается. Так как компьютеры функционируют во всех отраслях нашей жизни, важно знать об истории и будущем компьютерных технологий.</p>
+<h2><i class="fa-solid fa-history"></i> Когда появились первые вычислительные устройства?</h2>
+<p>Понятие числа возникло задолго до появления письменности. Люди учились считать в течение многих веков, передавая и обогащая свой опыт из поколения в поколение. Для счета они использовали пальцы, камни, нити, деревянные палочки и др.</p>
+<p>Самое первое и всем нам известное вычислительное устройство — <b>счеты</b>. Никто не может сказать, когда они появились: по некоторым данным им более 2000–5000 лет. Использовались они в Древнем Китае, в Древнем Египте и Древней Греции.</p>
+<div class="highlight-box">
+<p><b>Схема 2. История развития счетов:</b></p>
+<ul>
+<li><b>Абак</b> — Западная Европа (V–VI века)</li>
+<li><b>Суанпан</b> — Китай (VI век)</li>
+<li><b>Серобян</b> — Япония (XV–XVI века)</li>
+<li><b>Счеты</b> — Россия (XVII век)</li>
+</ul>
+</div>
+<div class="gallery">
+<div class="card-img">
+<img src="img/abak.jpg" alt="Абак и счетные инструменты" onerror="this.src='https://placehold.co/300x200/e2e8f0/64748b?text=Abak'">
+<h4>Счетные инструменты</h4>
+<p>Пальцы, камни, палочки, абак</p>
+</div>
+<div class="card-img">
+<img src="img/pascal.jpg" alt="Машина Паскаля" onerror="this.src='https://placehold.co/300x200/e2e8f0/64748b?text=Pascal'">
+<h4>Машина Паскаля (1642)</h4>
+<p>Суммирующая механическая машина</p>
+</div>
+<div class="card-img">
+<img src="img/leibniz.jpg" alt="Арифмометр Лейбница" onerror="this.src='https://placehold.co/300x200/e2e8f0/64748b?text=Leibniz'">
+<h4>Арифмометр Лейбница (1694)</h4>
+<p>Механическое вычислительное устройство</p>
+</div>
+<div class="card-img">
+<img src="img/babbage.jpg" alt="Аналитическая машина Бэббиджа" onerror="this.src='https://placehold.co/300x200/e2e8f0/64748b?text=Babbage'">
+<h4>Машина Бэббиджа (1833)</h4>
+<p>«Отец современного компьютера»</p>
+</div>
+</div>
+<h2><i class="fa-solid fa-timeline"></i> Ключевые вехи истории вычислительной техники</h2>
+<ul>
+<li><b>XVII век (1614):</b> Шотландский математик Джон Непер ввел понятие «логарифм». В 1761 году Д. Робертсон разработал логарифмическую линейку.</li>
+<li><b>1642 год:</b> Французский математик Блез Паскаль в возрасте 19 лет разработал первую суммирующую машину из шестеренок и колесиков.</li>
+<li><b>1833 год:</b> Английский ученый Чарлз Бэббидж разработал проект первой программируемой <i>«Аналитической машины»</i>. Его называют «отцом современного компьютера».</li>
+<li><b>1846 год:</b> Ада Лавлейс написала первую программу для машины Бэббиджа. Ее считают первым программистом! 👩‍💻</li>
+<li><b>Конец XIX века:</b> Герман Холлерит создал вычислительную перфорационную машину.</li>
+<li><b>1936 год:</b> Алан Тьюринг представил абстрактную «машину Тьюринга».</li>
+<li><b>1941 год:</b> Конрад Цузе изобрел управляемую программой машину <b>«Z3»</b>.</li>
+<li><b>1944 год:</b> Говард Айкен создал автоматическую вычислительную машину <b>«Марк-1»</b>.</li>
+</ul>
+<div class="fun-fact">
+<h3><i class="fa-solid fa-star"></i> Это интересно!</h3>
+<p>Первые автоматизированные компьютеры в США были 17 метров длиной и весили 5 тонн!</p>
+</div>
+<!-- Таблица по учебнику -->
+<h2><i class="fa-solid fa-table"></i> Таблица 1. История вычислительной техники</h2>
+<table>
+<thead>
+<tr>
+<th>№</th>
+<th>Название устройства</th>
+<th>Год / Автор</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Машина Паскаля</td><td>1642, Блез Паскаль</td></tr>
+<tr><td>2</td><td>Арифмометр Лейбница</td><td>1694, Готфрид Лейбниц</td></tr>
+<tr><td>3</td><td>Аналитическая машина</td><td>1833, Чарлз Бэббидж</td></tr>
+<tr><td>4</td><td>Перфорационная машина Холлерита</td><td>Конец XIX в., Герман Холлерит</td></tr>
+<tr><td>5</td><td>Машина Тьюринга</td><td>1936, Алан Тьюринг</td></tr>
+<tr><td>6</td><td>Машина Цузе Z3</td><td>1941, Конрад Цузе</td></tr>
+<tr><td>7</td><td>Марк-1 (Говард Айкен)</td><td>1944, Говард Айкен</td></tr>
+</tbody>
+</table>
+<!-- Интерактивные упражнения -->
+<div class="quiz-container">
+<h2><i class="fa-solid fa-pen-to-square"></i> Отвечаем на вопросы и проверяем знания</h2>
+<p>Сара, ответь на вопросы по уроку. Твои ответы будут автоматически сохранены для проверки!</p>
+<div class="student-info">
+<input type="text" id="student-name" placeholder="Имя: Сара" value="Сара">
+<input type="text" id="student-class" placeholder="Класс / Группа: 8" value="8">
+</div>
+<!-- Вопрос 1 -->
+<div class="question-card" id="q1-card">
+<p class="q-title">1. Какими были самые первые инструменты для счета у древних людей?</p>
+<div class="options">
+<label><input type="radio" name="q1" value="wrong"> Только калькуляторы и компьютеры</label>
+<label><input type="radio" name="q1" value="correct"> Пальцы, камни, нити, деревянные палочки</label>
+<label><input type="radio" name="q1" value="wrong"> Логарифмические линейки</label>
+</div>
+</div>
+<!-- Вопрос 2 -->
+<div class="question-card" id="q2-card">
+<p class="q-title">2. Кто считается «отцом современного компьютера» благодаря разработке аналитической машины в 1833 году?</p>
+<div class="options">
+<label><input type="radio" name="q2" value="wrong"> Блез Паскаль</label>
+<label><input type="radio" name="q2" value="correct"> Чарлз Бэббидж</label>
+<label><input type="radio" name="q2" value="wrong"> Алан Тьюринг</label>
+</div>
+</div>
+<!-- Вопрос 3 -->
+<div class="question-card" id="q3-card">
+<p class="q-title">3. Кого считают первым в истории программистом, написавшим программу для машины Бэббиджа в 1846 году?</p>
+<div class="options">
+<label><input type="radio" name="q3" value="correct"> Ада Лавлейс</label>
+<label><input type="radio" name="q3" value="wrong"> Джон Непер</label>
+<label><input type="radio" name="q3" value="wrong"> Герман Холлерит</label>
+</div>
+</div>
+<!-- Вопрос 4 -->
+<div class="question-card">
+<p class="q-title">4. Почему созданные в 1936, 1941, 1944 годах машины (Z3, Марк-1) не относятся к электронным вычислительным машинам?</p>
+<textarea id="q4-text" placeholder="Напиши свой ответ здесь..."></textarea>
+</div>
+<!-- Вопрос 5 -->
+<div class="question-card">
+<p class="q-title">5. Сравните первые счетные устройства и современные компьютеры. Какие изменения вы заметили?</p>
+<textarea id="q5-text" placeholder="Опиши различия своими словами..."></textarea>
+</div>
+<div class="btn-group">
+<button type="button" class="btn-submit" id="submit-btn">
+<i class="fa-solid fa-paper-plane"></i> Отправить ответы преподавателю
+</button>
+<button type="button" class="btn-reset" id="reset-btn">
+<i class="fa-solid fa-rotate-right"></i> Сбросить тест
+</button>
+</div>
+<div id="status-message"></div>
+</div>
+</div>
+</div>
+<script>
+document.getElementById('submit-btn').addEventListener('click', async function() {
+const name = document.getElementById('student-name').value.trim();
+const studentClass = document.getElementById('student-class').value.trim();
+const statusBox = document.getElementById('status-message');
+if (!name) {
+statusBox.style.display = 'block';
+statusBox.className = 'error-msg';
+statusBox.innerText = 'Пожалуйста, введите имя!';
+return;
+}
+// Raccolta risposte
+const q1Selected = document.querySelector('input[name="q1"]:checked');
+const q2Selected = document.querySelector('input[name="q2"]:checked');
+const q3Selected = document.querySelector('input[name="q3"]:checked');
+const q4Answer = document.getElementById('q4-text').value.trim();
+const q5Answer = document.getElementById('q5-text').value.trim();
+let score = 0;
+let totalQuiz = 3;
+if (q1Selected && q1Selected.value === 'correct') score++;
+if (q2Selected && q2Selected.value === 'correct') score++;
+if (q3Selected && q3Selected.value === 'correct') score++;
+const submissionData = {
+studentName: name,
+studentClass: studentClass,
+lesson: "§ 3. История развития вычислительной техники",
+score: score,
+totalQuiz: totalQuiz,
+answers: {
+q1: q1Selected ? q1Selected.value : 'no_answer',
+q2: q2Selected ? q2Selected.value : 'no_answer',
+q3: q3Selected ? q3Selected.value : 'no_answer',
+q4: q4Answer,
+q5: q5Answer
+},
+timestamp: window.serverTimestamp ? window.serverTimestamp() : new Date()
+};
+try {
+statusBox.style.display = 'block';
+statusBox.className = 'success-msg';
+statusBox.innerText = 'Отправка данных на сервер... ⏳';
+// Salvataggio su Firebase Firestore
+if (window.db && window.collection && window.addDoc) {
+await window.addDoc(window.collection(window.db, "student_submissions"), submissionData);
+statusBox.className = 'success-msg';
+statusBox.innerText = ✅ Успешно отправлено! Результат теста: ${score}/${totalQuiz}. Преподаватель скоро проверит ваши ответы! 🎉;
+} else {
+statusBox.className = 'success-msg';
+statusBox.innerText = ✅ Ответы записаны локально! Результат теста: ${score}/${totalQuiz}. (Firebase in modalità demo).;
+}
+} catch (error) {
+console.error("Errore salvataggio Firebase: ", error);
+statusBox.className = 'error-msg';
+statusBox.innerText = '❌ Ошибка при отправке. Пожалуйста, попробуйте еще раз.';
+}
+});
+// Pulsante Reset test
+document.getElementById('reset-btn').addEventListener('click', function() {
+if (confirm('Вы уверены, что хотите сбросить все ответы и начать заново?')) {
+document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+document.getElementById('q4-text').value = '';
+document.getElementById('q5-text').value = '';
+const statusBox = document.getElementById('status-message');
+statusBox.style.display = 'none';
+statusBox.innerText = '';
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+});
+</script>
+</body>
+  </html>
