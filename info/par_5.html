@@ -358,6 +358,52 @@
             header h1 { font-size: 1.5rem; }
             .tab-btn { padding: 9px 14px; font-size: 0.85rem; }
         }
+    
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 13px 16px;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-size: 1rem;
+            text-align: left;
+            user-select: none;
+        }
+        .option:hover {
+            border-color: var(--primary);
+            background: #f0f0ff;
+            transform: translateX(4px);
+        }
+        .option.selected {
+            border-color: var(--primary);
+            background: #e8e6ff;
+            box-shadow: 0 0 0 3px rgba(91,76,255,0.2);
+        }
+        .option.correct {
+            border-color: var(--success) !important;
+            background: #d4edda !important;
+        }
+        .option.wrong {
+            border-color: var(--secondary) !important;
+            background: #f8d7da !important;
+        }
+        .feedback-msg {
+            margin-top: 10px;
+            font-weight: 700;
+            font-size: 0.98rem;
+            display: none;
+        }
+        .feedback-msg.show { display: block; }
+        .feedback-msg.ok { color: var(--success); }
+        .feedback-msg.partial { color: #e17055; }
+
     </style>
 </head>
 <body>
@@ -539,163 +585,141 @@
         </div>
 
         <!-- QUESTIONS -->
-        <div id="questions" class="section">
+                <div id="questions" class="section">
             <h2>❓ Отвечаем на вопросы</h2>
-            <p>Напиши ответы своими словами. Если нужна помощь — нажми «Подсказка».</p>
+            <p>Выбери правильный ответ и нажми «Проверить».</p>
 
             <!-- Q1 -->
-            <div class="question-block">
+            <div class="question-block" data-correct="0">
                 <p class="q-text">1. Из каких частей и устройств состоит персональный компьютер?</p>
-                <div class="answer-area">
-                    <textarea id="a1" placeholder="Напиши свой ответ здесь..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-hint" onclick="showHint(1)">💡 Подсказка</button>
-                        <button class="btn btn-check" onclick="checkAnswer(1)">✅ Проверить</button>
-                    </div>
-                    <div id="hint1" class="hint-box">Персональный компьютер состоит из: системного блока, монитора и устройств ввода (клавиатура, мышь). В системном блоке находятся процессор, память, материнская плата и другие компоненты.</div>
-                    <div id="fb1" class="feedback-msg"></div>
+                <div class="options">
+                    <div class="option" onclick="selectOpt(this)">Системный блок, монитор и клавиатура</div>
+                    <div class="option" onclick="selectOpt(this)">Только системный блок</div>
+                    <div class="option" onclick="selectOpt(this)">Монитор и принтер</div>
+                    <div class="option" onclick="selectOpt(this)">Клавиатура и мышь</div>
                 </div>
+                <button class="btn btn-check" onclick="checkMC(this)">✅ Проверить</button>
+                <div class="feedback-msg"></div>
             </div>
 
             <!-- Q2 -->
-            <div class="question-block">
+            <div class="question-block" data-correct="1">
                 <p class="q-text">2. Каково назначение системного блока?</p>
-                <div class="answer-area">
-                    <textarea id="a2" placeholder="Напиши свой ответ здесь..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-hint" onclick="showHint(2)">💡 Подсказка</button>
-                        <button class="btn btn-check" onclick="checkAnswer(2)">✅ Проверить</button>
-                    </div>
-                    <div id="hint2" class="hint-box">Системный блок — главная часть компьютера. К нему подключаются все основные и дополнительные устройства. Внутри него находятся процессор, память, материнская плата и другие важные компоненты.</div>
-                    <div id="fb2" class="feedback-msg"></div>
+                <div class="options">
+                    <div class="option" onclick="selectOpt(this)">Показывать изображение</div>
+                    <div class="option" onclick="selectOpt(this)">Главная часть компьютера, к которой подключаются все устройства</div>
+                    <div class="option" onclick="selectOpt(this)">Вводить текст</div>
+                    <div class="option" onclick="selectOpt(this)">Печатать документы</div>
                 </div>
+                <button class="btn btn-check" onclick="checkMC(this)">✅ Проверить</button>
+                <div class="feedback-msg"></div>
             </div>
 
             <!-- Q3 -->
-            <div class="question-block">
+            <div class="question-block" data-correct="2">
                 <p class="q-text">3. Какие устройства расположены в системном блоке?</p>
-                <div class="answer-area">
-                    <textarea id="a3" placeholder="Напиши свой ответ здесь..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-hint" onclick="showHint(3)">💡 Подсказка</button>
-                        <button class="btn btn-check" onclick="checkAnswer(3)">✅ Проверить</button>
-                    </div>
-                    <div id="hint3" class="hint-box">В системном блоке находятся: материнская плата, микропроцессор, внутренняя память (ОЗУ и ПЗУ), дисковод, системная шина, электронные схемы и блок питания с системами охлаждения.</div>
-                    <div id="fb3" class="feedback-msg"></div>
+                <div class="options">
+                    <div class="option" onclick="selectOpt(this)">Монитор и клавиатура</div>
+                    <div class="option" onclick="selectOpt(this)">Принтер и сканер</div>
+                    <div class="option" onclick="selectOpt(this)">Материнская плата, микропроцессор, память, дисковод</div>
+                    <div class="option" onclick="selectOpt(this)">Мышь и наушники</div>
                 </div>
+                <button class="btn btn-check" onclick="checkMC(this)">✅ Проверить</button>
+                <div class="feedback-msg"></div>
             </div>
 
             <!-- Q4 -->
-            <div class="question-block">
+            <div class="question-block" data-correct="0">
                 <p class="q-text">4. Каково основное назначение материнской платы?</p>
-                <div class="answer-area">
-                    <textarea id="a4" placeholder="Напиши свой ответ здесь..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-hint" onclick="showHint(4)">💡 Подсказка</button>
-                        <button class="btn btn-check" onclick="checkAnswer(4)">✅ Проверить</button>
-                    </div>
-                    <div id="hint4" class="hint-box">Материнская плата — основное аппаратное обеспечение. Через неё все устройства системного блока взаимодействуют и обмениваются информацией. Она обеспечивает правильную работу компьютера.</div>
-                    <div id="fb4" class="feedback-msg"></div>
+                <div class="options">
+                    <div class="option" onclick="selectOpt(this)">Обеспечивать взаимодействие и обмен информацией между устройствами</div>
+                    <div class="option" onclick="selectOpt(this)">Показывать картинки на экране</div>
+                    <div class="option" onclick="selectOpt(this)">Хранить файлы навсегда</div>
+                    <div class="option" onclick="selectOpt(this)">Подключать наушники</div>
                 </div>
+                <button class="btn btn-check" onclick="checkMC(this)">✅ Проверить</button>
+                <div class="feedback-msg"></div>
             </div>
 
             <!-- Q5 -->
-            <div class="question-block">
+            <div class="question-block" data-correct="1">
                 <p class="q-text">5. Какую функцию выполняет микропроцессор?</p>
-                <div class="answer-area">
-                    <textarea id="a5" placeholder="Напиши свой ответ здесь..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-hint" onclick="showHint(5)">💡 Подсказка</button>
-                        <button class="btn btn-check" onclick="checkAnswer(5)">✅ Проверить</button>
-                    </div>
-                    <div id="hint5" class="hint-box">Микропроцессор — «мозг» компьютера. Он выполняет команды программ, обрабатывает данные и управляет работой всех компонентов. Чем выше его тактовая частота, тем быстрее работает компьютер.</div>
-                    <div id="fb5" class="feedback-msg"></div>
+                <div class="options">
+                    <div class="option" onclick="selectOpt(this)">Хранит все файлы пользователя</div>
+                    <div class="option" onclick="selectOpt(this)">Выполняет команды и обрабатывает данные («мозг» компьютера)</div>
+                    <div class="option" onclick="selectOpt(this)">Выводит изображение на монитор</div>
+                    <div class="option" onclick="selectOpt(this)">Подключает флешки</div>
                 </div>
+                <button class="btn btn-check" onclick="checkMC(this)">✅ Проверить</button>
+                <div class="feedback-msg"></div>
             </div>
 
             <!-- Q6 -->
-            <div class="question-block">
+            <div class="question-block" data-correct="3">
                 <p class="q-text">6. Что такое порты компьютера?</p>
-                <div class="answer-area">
-                    <textarea id="a6" placeholder="Напиши свой ответ здесь..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-hint" onclick="showHint(6)">💡 Подсказка</button>
-                        <button class="btn btn-check" onclick="checkAnswer(6)">✅ Проверить</button>
-                    </div>
-                    <div id="hint6" class="hint-box">Порт — это разъём для передачи данных. Через порты (USB, LPT, COM и другие) к компьютеру подключают внешние устройства: принтеры, флешки, мыши, клавиатуры, модемы и т.д.</div>
-                    <div id="fb6" class="feedback-msg"></div>
+                <div class="options">
+                    <div class="option" onclick="selectOpt(this)">Кнопки на клавиатуре</div>
+                    <div class="option" onclick="selectOpt(this)">Программы для рисования</div>
+                    <div class="option" onclick="selectOpt(this)">Части монитора</div>
+                    <div class="option" onclick="selectOpt(this)">Разъёмы для подключения внешних устройств (USB и др.)</div>
                 </div>
+                <button class="btn btn-check" onclick="checkMC(this)">✅ Проверить</button>
+                <div class="feedback-msg"></div>
             </div>
         </div>
 
         <!-- THINK -->
         <div id="think" class="section">
             <h2>💭 Думаем и обсуждаем</h2>
-            <p>Эти вопросы требуют размышления. Напиши свои мысли и при необходимости посмотри подсказку.</p>
+            <p>Выбери наиболее правильный ответ.</p>
 
             <!-- T1 -->
-            <div class="question-block think">
+            <div class="question-block think" data-correct="1">
                 <p class="q-text">1. Почему процесс обмена информацией проходит через материнскую плату?</p>
-                <div class="answer-area">
-                    <textarea id="t1" placeholder="Напиши свои рассуждения..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-hint" onclick="showHint('t1')">💡 Подсказка</button>
-                        <button class="btn btn-check" onclick="checkAnswer('t1')">✅ Проверить</button>
-                    </div>
-                    <div id="hintt1" class="hint-box">Материнская плата — это «главная дорога» компьютера. Все устройства подключены к ней и через неё обмениваются данными. Без материнской платы процессор, память и другие части не смогли бы «общаться» друг с другом.</div>
-                    <div id="fbt1" class="feedback-msg"></div>
+                <div class="options">
+                    <div class="option" onclick="selectOpt(this)">Потому что она красивая</div>
+                    <div class="option" onclick="selectOpt(this)">Потому что все устройства подключены к ней и через неё «общаются»</div>
+                    <div class="option" onclick="selectOpt(this)">Потому что она находится снаружи компьютера</div>
+                    <div class="option" onclick="selectOpt(this)">Потому что она нужна только для питания</div>
                 </div>
+                <button class="btn btn-check" onclick="checkMC(this)">✅ Проверить</button>
+                <div class="feedback-msg"></div>
             </div>
 
             <!-- T2 -->
-            <div class="question-block think">
+            <div class="question-block think" data-correct="0">
                 <p class="q-text">2. Почему все компьютерные устройства взаимодействуют друг с другом?</p>
-                <div class="answer-area">
-                    <textarea id="t2" placeholder="Напиши свои рассуждения..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-hint" onclick="showHint('t2')">💡 Подсказка</button>
-                        <button class="btn btn-check" onclick="checkAnswer('t2')">✅ Проверить</button>
-                    </div>
-                    <div id="hintt2" class="hint-box">Компьютер работает как единая система. Чтобы выполнить задачу (например, открыть файл), нужны данные из памяти, команды процессора, отображение на мониторе и т.д. Устройства должны взаимодействовать, чтобы результат появился на экране.</div>
-                    <div id="fbt2" class="feedback-msg"></div>
+                <div class="options">
+                    <div class="option" onclick="selectOpt(this)">Чтобы компьютер работал как единая система и выполнял задачи</div>
+                    <div class="option" onclick="selectOpt(this)">Чтобы занимать больше места</div>
+                    <div class="option" onclick="selectOpt(this)">Чтобы компьютер выглядел сложнее</div>
+                    <div class="option" onclick="selectOpt(this)">Они не взаимодействуют</div>
                 </div>
+                <button class="btn btn-check" onclick="checkMC(this)">✅ Проверить</button>
+                <div class="feedback-msg"></div>
             </div>
 
             <!-- T3 -->
-            <div class="question-block think">
+            <div class="question-block think" data-correct="2">
                 <p class="q-text">3. Для чего предназначены порты компьютера?</p>
-                <div class="answer-area">
-                    <textarea id="t3" placeholder="Напиши свои рассуждения..."></textarea>
-                    <div class="btn-row">
-                        <button class="btn btn-hint" onclick="showHint('t3')">💡 Подсказка</button>
-                        <button class="btn btn-check" onclick="checkAnswer('t3')">✅ Проверить</button>
-                    </div>
-                    <div id="hintt3" class="hint-box">Порты нужны для подключения внешних устройств к компьютеру. Через них передаются данные: можно подключить флешку, принтер, мышь, клавиатуру, наушники и многое другое. Без портов компьютер был бы «закрытой коробкой».</div>
-                    <div id="fbt3" class="feedback-msg"></div>
+                <div class="options">
+                    <div class="option" onclick="selectOpt(this)">Для украшения корпуса</div>
+                    <div class="option" onclick="selectOpt(this)">Для охлаждения процессора</div>
+                    <div class="option" onclick="selectOpt(this)">Для подключения внешних устройств и передачи данных</div>
+                    <div class="option" onclick="selectOpt(this)">Для хранения паролей</div>
                 </div>
+                <button class="btn btn-check" onclick="checkMC(this)">✅ Проверить</button>
+                <div class="feedback-msg"></div>
             </div>
         </div>
 
-        <footer>
+<footer>
             Урок подготовлен специально для Сары 💖<br>
             Информатика • 6 класс • § 5. Как работает компьютер
         </footer>
     </div>
 
     <script>
-        // Suggested keywords for simple checking
-        const keywords = {
-            1: ['системн', 'монитор', 'клавиатур', 'блок', 'устройств'],
-            2: ['главн', 'подключ', 'устройств', 'компонент', 'процессор', 'памят'],
-            3: ['материнск', 'процессор', 'памят', 'дисковод', 'шина', 'питан'],
-            4: ['обмен', 'информац', 'взаимодейств', 'устройств', 'правильн', 'работ'],
-            5: ['команд', 'обрабат', 'данн', 'управл', 'частот', 'мозг'],
-            6: ['разъём', 'подключ', 'usb', 'данн', 'внешн', 'устройств'],
-            t1: ['обмен', 'данн', 'устройств', 'связ', 'плата', 'обща'],
-            t2: ['систем', 'вместе', 'задач', 'результат', 'взаимодейств'],
-            t3: ['подключ', 'внешн', 'устройств', 'передач', 'данн', 'флеш', 'принтер']
-        };
-
         function showSection(id, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -714,44 +738,46 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function showHint(id) {
-            const hint = document.getElementById('hint' + id);
-            if (hint) {
-                hint.classList.toggle('show');
-            }
+        function selectOpt(el) {
+            const block = el.closest('.question-block');
+            if (block.dataset.answered) return;
+            block.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
         }
 
-        function checkAnswer(id) {
-            const textarea = document.getElementById('a' + id) || document.getElementById(id);
-            const fb = document.getElementById('fb' + id) || document.getElementById('fb' + id);
-            // handle both numeric and 't1' style ids
-            const textEl = document.getElementById(typeof id === 'number' ? 'a' + id : id);
-            const feedbackEl = document.getElementById(typeof id === 'number' ? 'fb' + id : 'fb' + id);
+        function checkMC(btn) {
+            const block = btn.closest('.question-block');
+            if (!block || block.dataset.answered) return;
 
-            if (!textEl || !feedbackEl) return;
+            const selected = block.querySelector('.option.selected');
+            const feedback = block.querySelector('.feedback-msg');
+            const options = block.querySelectorAll('.option');
+            const correctIndex = parseInt(block.dataset.correct, 10);
 
-            const text = (textEl.value || '').toLowerCase().trim();
-            if (!text) {
-                feedbackEl.textContent = '⚠️ Сначала напиши ответ!';
-                feedbackEl.className = 'feedback-msg show partial';
+            if (!selected) {
+                feedback.textContent = '⚠️ Сначала выбери ответ!';
+                feedback.className = 'feedback-msg show partial';
                 return;
             }
 
-            const keys = keywords[id] || [];
-            let found = 0;
-            keys.forEach(k => {
-                if (text.includes(k)) found++;
+            block.dataset.answered = 'true';
+            let selectedIndex = -1;
+            options.forEach((o, i) => {
+                if (o === selected) selectedIndex = i;
             });
 
-            if (found >= 2 || text.length > 40) {
-                feedbackEl.textContent = '✅ Хороший ответ! Молодец, Сара!';
-                feedbackEl.className = 'feedback-msg show ok';
-            } else if (found >= 1) {
-                feedbackEl.textContent = '👍 Неплохо! Можно добавить ещё деталей. Посмотри подсказку.';
-                feedbackEl.className = 'feedback-msg show partial';
+            options.forEach((o, i) => {
+                o.classList.remove('correct', 'wrong');
+                if (i === correctIndex) o.classList.add('correct');
+                if (i === selectedIndex && i !== correctIndex) o.classList.add('wrong');
+            });
+
+            if (selectedIndex === correctIndex) {
+                feedback.textContent = '✅ Правильно! Молодец, Сара!';
+                feedback.className = 'feedback-msg show ok';
             } else {
-                feedbackEl.textContent = '💪 Попробуй ещё раз. Нажми «Подсказка», чтобы увидеть пример ответа.';
-                feedbackEl.className = 'feedback-msg show partial';
+                feedback.textContent = '❌ Неверно. Правильный ответ выделен зелёным.';
+                feedback.className = 'feedback-msg show partial';
             }
         }
     </script>
